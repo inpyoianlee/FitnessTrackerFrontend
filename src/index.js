@@ -18,7 +18,7 @@ import {
 const App = () => {
   return (
     <div id="App">
-      <h1>Hello, World!!!</h1>
+      <h1>Welcome to Fitness Tracker!</h1>
       <Header />
       <NavBar />
     </div>
