@@ -4,7 +4,8 @@ import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
 import {
   Header,
-  NavBar
+  NavBar, 
+  Register
 } from './components';
 
 import {
@@ -16,11 +17,17 @@ import {
 
 
 const App = () => {
+  const [currentUser, setCurrentUser] = useState([]);
+
   return (
     <div id="App">
-      <h1>Hello, World!!!</h1>
-      <Header />
       <NavBar />
+      <Header />
+      <Switch>
+        <Route path='/register'>
+          <Register setCurrentUser={ setCurrentUser }/>
+        </Route>
+      </Switch>
     </div>
   );
 };
