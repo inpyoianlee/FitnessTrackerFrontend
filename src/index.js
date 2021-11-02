@@ -2,7 +2,10 @@
 
 import React, { useState, useEffect } from 'react';
 import ReactDOM from 'react-dom';
-import Header from './components/Header'
+import {
+  Header,
+  NavBar
+} from './components';
 
 import {
   BrowserRouter as Router, 
@@ -17,6 +20,7 @@ const App = () => {
     <div id="App">
       <h1>Hello, World!!!</h1>
       <Header />
+      <NavBar />
     </div>
   );
 };
