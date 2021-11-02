@@ -5,7 +5,8 @@ import ReactDOM from 'react-dom';
 import {
   Header,
   NavBar, 
-  Register
+  Register, 
+  Login
 } from './components';
 
 import {
@@ -26,6 +27,9 @@ const App = () => {
       <Switch>
         <Route path='/register'>
           <Register setCurrentUser={ setCurrentUser }/>
+        </Route>
+        <Route path='/login'>
+          <Login setCurrentUser={ setCurrentUser }/>
         </Route>
       </Switch>
     </div>
