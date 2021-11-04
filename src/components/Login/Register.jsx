@@ -4,6 +4,7 @@ import { registerUser } from "../../api";
 const Register = ({ setCurrentUser }) => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  
   return (
     <div className="registerBox">
       <h1>Create an account to share your workouts with others!</h1>

@@ -5,6 +5,8 @@ const NavBar = () => {
     return (
         <nav id="nav">
             <Link to="/">Home</Link>
+            <Link to="/Register">Register</Link>
+            <Link to="/Login">Login</Link>
             <Link to="/Activities">Activities</Link>
             <Link to="/Routines">Routines</Link>
         </nav>
