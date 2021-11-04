@@ -108,6 +108,7 @@ export async function createRoutine(id, creatorId, isPublic, name, goal, token) 
           creatorId : creatorId,
           isPublic : isPublic,
           name: name,
+          goal: goal,
           description: description,
         }
       }, { headers: { Authorization: `Bearer ${token}` } });

@@ -1,33 +1,36 @@
 import React, { useState } from 'react';
-import { createPost } from '../api';
+import { createRoutine } from '../api';
 import { getToken } from '../auth';
 
-const CreatePost = ({ setAllPosts, allPosts, setUserPosts, userId }) => {
-    const [title, setTitle] = useState('');
-    const [location, setLocation] = useState('');
-    const [price, setPrice] = useState('');
-    const [description, setDescription] = useState('');
-    const [willDeliver, setWillDeliver] = useState(false);
+const createRoutine = ({ id, creatorId, isPublic, name, goal, token }) => {
+    const [id, setid] = useState('');
+    const [creatorId, setcreatorId] = useState('');
+    const [name, setname] = useState('');
+    const [goal, setgoal] = useState('');
+    const [isPublic, setisPublic] = useState(false);
+    const [SaveRoutine, setSaveRoutine] = useState(false);
 
     return (
         <div className="create-post">
-            <h2>Add a New Listing </h2>
+            <h2>Add a New Routine</h2>
             <form
                 className="create-post-form"
                 onSubmit={async (e) => {
                     e.preventDefault();
                     const userToken = getToken();
                     try {
-                        !title ? alert('Post titles are required. Please enter a title') : null;
-                        !description ? alert('Please enter a description') : null;
-                        const userLocation = location ? location : "[On Request]";
-                        const userPrice = price ? price : "Free";
-                        const results = await createPost(title, description, userPrice, userLocation, willDeliver, userToken);
-                        setTitle('');
-                        setDescription('');
-                        setPrice('');
-                        setLocation('');
-                        setWillDeliver(false);
+                        !id ? alert('All ids are required. Please enter your id') : null;
+                        !creatorId ? alert('All creatorIds are required. Please enter your creator id') : null;
+                        !name ? alert('Naming Activities are required. Please enter the name of Routine') : null;
+                        !goal ? alert('Please enter a goal') : null;
+                
+                        const results = await createPost(id, name, goal, isPublic, SaveRoutine, userToken);
+                        setid('');
+                        setcreatorId('');
+                        setname('');
+                        setgoal('');
+                        setisPublic(false);
+                        setSaveRoutine(false);
 
                         const allPostsCopy = allPosts.slice();
                         allPostsCopy.unshift(results.data.post);
@@ -47,43 +50,35 @@ const CreatePost = ({ setAllPosts, allPosts, setUserPosts, userId }) => {
 
                 <input
                     type="text"
-                    id="post-title"
+                    id="Id"
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Title" />
-
-                <textarea
-                    id="post-description"
-                    value={description}
-                    onChange={(e) => setDescription(e.target.value)}
-                    placeholder="Description"
-                    rows={8} />
+                    onChange={(e) => setid(e.target.value)}
+                    placeholder="Id" />
+                      <input
+                    type="text"
+                    id="creatorId"
+                    value={title}
+                    onChange={(e) => setcreatorId(e.target.value)}
+                    placeholder="Id" />
                 <input
                     type="text"
-                    id="post-price"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    placeholder="Price" />
-                <input
-                    type="text"
-                    id="post-location"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    placeholder="Location" />
-
+                    id="routine-name"
+                    value={name}
+                    onChange={(e) => setname(e.target.value)}
+                    placeholder="Name" />
                 <label className="post-checkbox">
                     <input
                         type="checkbox"
-                        id="post-deliver"
-                        value={willDeliver}
-                        onChange={(e) => setWillDeliver(true)}
+                        id="save-routine"
+                        value={SaveRoutine}
+                        onChange={(e) => setSaveRoutine(true)}
                     />
-                    <p>Willing to Deliver?</p>
+                    <p>Willing to Save?</p>
                 </label>
-                <button>Create Post</button>
+                <button>Create Routine Post</button>
             </form>
         </div>
     )
 }
 
-export default CreatePost;
+export default createRoutine;
