@@ -17,10 +17,10 @@ export async function registerUser(username, password) {
     password: password
   }
   try {
-    const data = await axios.post(`${ BASE }/users/register`, user);
+    const { data } = await axios.post(`${ BASE }/users/register`, user);
     return data;
   } catch (error) {
-    throw error;
+    console.log(error);
   }
 }
 
@@ -30,7 +30,7 @@ export async function loginUser(username, password) {
     password: password
   }
   try {
-    const data = await axios.post(`${ BASE }/users/login`, user)
+    const { data } = await axios.post(`${ BASE }/users/login`, user)
     return data;
   } catch(err) {
     throw err;
