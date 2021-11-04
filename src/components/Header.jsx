@@ -7,13 +7,13 @@ const Header = ({ userName }) => {
   return (
     <div>
       <div className="welcome-header">
-        <h2>{!auth ? "Welcome to" : `Welcome back ${userName}`}</h2>
-        <img className="welcome-logo" src={StLogoHorizontal} />
-        <p>A convenient destination for people to discover, buy and sell items.</p>
+        {/* <h2>{!auth ? "Welcome to" : `Welcome back ${userName}`}</h2>
+        <img className="welcome-logo"/> */}
+        <p>An app that will keep track of your routine and activities.</p>
         <div className="welcome-body">
-          <h2>Recently Sold Items:</h2>
+          <h2>Please choose one of the following:</h2>
           <div className="welcome-products">
-            <figure>
+            {/* <figure>
               <img className="welcome-image" src={stMug} />
               <figcaption>Stranger Things Mug</figcaption>
             </figure>
@@ -28,7 +28,7 @@ const Header = ({ userName }) => {
             <figure>
               <img className="welcome-image" src={puppy} />
               <figcaption>Golden Retriever Puppies </figcaption>
-            </figure>
+            </figure> */}
           </div>
         </div>
       </div>
