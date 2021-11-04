@@ -22,6 +22,8 @@ const App = () => {
 
   return (
     <div id="App">
+      <h1>Welcome to Fitness Tracker!</h1>
+      <Header />
       <NavBar />
       <Header />
       <Switch>
