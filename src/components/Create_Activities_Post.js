@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CreateActivity } from '../api';
 import { getToken } from '../auth';
 
-const CreateActivity = ({ id, name, description, token }) => {
+const Create_Activities_Post = ({ activityId, name, description, token }) => {
     const [id, setid] = useState('');
     const [name, setname] = useState('');
     const [description, setDescription] = useState('');
@@ -76,4 +76,4 @@ const CreateActivity = ({ id, name, description, token }) => {
     )
 }
 
-export default CreateActivity;
+export default Create_Activities_Post;

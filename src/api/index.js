@@ -20,7 +20,7 @@ export async function registerUser(username, password) {
     const { data } = await axios.post(`${ BASE }/users/register`, user);
     return data;
   } catch (error) {
-    console.log(error);
+    throw error;
   }
 }
 
