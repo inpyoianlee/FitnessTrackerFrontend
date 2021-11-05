@@ -1,33 +1,31 @@
 import React, { useState } from 'react';
-import { createPost } from '../api';
+import { CreateActivity } from '../api';
 import { getToken } from '../auth';
 
-const CreatePost = ({ setAllPosts, allPosts, setUserPosts, userId }) => {
-    const [title, setTitle] = useState('');
-    const [location, setLocation] = useState('');
-    const [price, setPrice] = useState('');
+const CreateActivity = ({ id, name, description, token }) => {
+    const [id, setid] = useState('');
+    const [name, setname] = useState('');
     const [description, setDescription] = useState('');
-    const [willDeliver, setWillDeliver] = useState(false);
+    const [SaveActivity, setSaveActivity] = useState(false);
 
     return (
         <div className="create-post">
-            <h2>Add a New Listing </h2>
+            <h2>Add a New Activity</h2>
             <form
                 className="create-post-form"
                 onSubmit={async (e) => {
                     e.preventDefault();
                     const userToken = getToken();
                     try {
-                        !title ? alert('Post titles are required. Please enter a title') : null;
+                        !id ? alert('All ids are required. Please enter your id') : null;
+                        !name ? alert('Naming Activities are required. Please enter the name of Activity') : null;
                         !description ? alert('Please enter a description') : null;
-                        const userLocation = location ? location : "[On Request]";
-                        const userPrice = price ? price : "Free";
-                        const results = await createPost(title, description, userPrice, userLocation, willDeliver, userToken);
-                        setTitle('');
+                
+                        const results = await createPost(id, name, description, SaveActivity, userToken);
+                        setid('');
+                        setname('');
                         setDescription('');
-                        setPrice('');
-                        setLocation('');
-                        setWillDeliver(false);
+                        setSaveActivity(false);
 
                         const allPostsCopy = allPosts.slice();
                         allPostsCopy.unshift(results.data.post);
@@ -47,43 +45,35 @@ const CreatePost = ({ setAllPosts, allPosts, setUserPosts, userId }) => {
 
                 <input
                     type="text"
-                    id="post-title"
+                    id="Id"
                     value={title}
-                    onChange={(e) => setTitle(e.target.value)}
-                    placeholder="Title" />
-
+                    onChange={(e) => setid(e.target.value)}
+                    placeholder="Id" />
+                <input
+                    type="text"
+                    id="activity-name"
+                    value={name}
+                    onChange={(e) => setname(e.target.value)}
+                    placeholder="Name" />
                 <textarea
-                    id="post-description"
+                    id="activity-description"
                     value={description}
                     onChange={(e) => setDescription(e.target.value)}
                     placeholder="Description"
                     rows={8} />
-                <input
-                    type="text"
-                    id="post-price"
-                    value={price}
-                    onChange={(e) => setPrice(e.target.value)}
-                    placeholder="Price" />
-                <input
-                    type="text"
-                    id="post-location"
-                    value={location}
-                    onChange={(e) => setLocation(e.target.value)}
-                    placeholder="Location" />
-
                 <label className="post-checkbox">
                     <input
                         type="checkbox"
-                        id="post-deliver"
-                        value={willDeliver}
-                        onChange={(e) => setWillDeliver(true)}
+                        id="save-activity"
+                        value={SaveActivity}
+                        onChange={(e) => setSaveActivity(true)}
                     />
-                    <p>Willing to Deliver?</p>
+                    <p>Willing to Save?</p>
                 </label>
-                <button>Create Post</button>
+                <button>Create Activity Post</button>
             </form>
         </div>
     )
 }
 
-export default CreatePost;
+export default CreateActivity;

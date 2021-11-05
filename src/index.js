@@ -22,9 +22,9 @@ const App = () => {
 
   return (
     <div id="App">
+      <NavBar />
       <h1>Welcome to Fitness Tracker!</h1>
       <Header />
-      <NavBar />
       <Header />
       <Switch>
         <Route path='/register'>
