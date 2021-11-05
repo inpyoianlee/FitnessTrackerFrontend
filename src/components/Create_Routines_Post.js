@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { createRoutine } from '../api';
 import { getToken } from '../auth';
 
-const createRoutine = ({ id, creatorId, isPublic, name, goal, token }) => {
+const CreateRoutine = (props) => {
     const [id, setid] = useState('');
     const [creatorId, setcreatorId] = useState('');
     const [name, setname] = useState('');
@@ -24,7 +24,7 @@ const createRoutine = ({ id, creatorId, isPublic, name, goal, token }) => {
                         !name ? alert('Naming Activities are required. Please enter the name of Routine') : null;
                         !goal ? alert('Please enter a goal') : null;
                 
-                        const results = await createPost(id, name, goal, isPublic, SaveRoutine, userToken);
+                        const results = await createRoutine(id, name, goal, isPublic, SaveRoutine, userToken);
                         setid('');
                         setcreatorId('');
                         setname('');
@@ -81,4 +81,4 @@ const createRoutine = ({ id, creatorId, isPublic, name, goal, token }) => {
     )
 }
 
-export default createRoutine;
+export default CreateRoutine;
