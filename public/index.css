@@ -44,14 +44,6 @@ a {
   padding: 1em;
 }
 
-.nav-logo {
-  margin-left: 2.5em;
-}
-
-.logo-horizontal {
-  height: 14px;
-}
-
 .nav-bar-links {
   display: flex;
 }
@@ -86,11 +78,6 @@ a {
 .welcome-header>h1, h2 {
   color: #354f52;
   font-weight: 600;
-}
-
-.welcome-logo {
-  width: 450px;
-  margin: 8px;
 }
 
 .welcome-body {
