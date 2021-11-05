@@ -1,6 +1,7 @@
 import react, { useEffect, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { getAllPublicRoutinesByUser } from "../api";
+import { Link } from "react-router-dom";
 
 const Profile = ({ isLoggedIn, username }) => {
   const [userRoutines, setUserRoutines] = useState([]);
@@ -33,6 +34,7 @@ const Profile = ({ isLoggedIn, username }) => {
                 )
             })
         }
+        <Link to='/CreateRoutine'>Create a new routine!</Link>
       </div>
     </div>
   );
