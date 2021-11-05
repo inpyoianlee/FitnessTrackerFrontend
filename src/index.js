@@ -6,7 +6,8 @@ import {
   Header,
   NavBar, 
   Register, 
-  Login
+  Login, 
+  Profile
 } from './components';
 
 import {
@@ -18,20 +19,37 @@ import {
 
 
 const App = () => {
-  const [currentUser, setCurrentUser] = useState([]);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [token, setToken] = useState('');
+  const [username, setUsername] = useState('');
 
   return (
     <div id="App">
       <NavBar />
       <h1>Welcome to Fitness Tracker!</h1>
       <Header />
-      <Header />
       <Switch>
         <Route path='/register'>
-          <Register setCurrentUser={ setCurrentUser }/>
+          <Register 
+            setIsLoggedIn={ setIsLoggedIn } 
+            setToken={ setToken } 
+            username={ username } 
+            setUsername={ setUsername }
+          />
         </Route>
         <Route path='/login'>
-          <Login setCurrentUser={ setCurrentUser }/>
+          <Login 
+            setIsLoggedIn={ setIsLoggedIn } 
+            setToken={ setToken } 
+            username={ username } 
+            setUsername={ setUsername }
+          />
+        </Route>
+        <Route path='/Profile'>
+          <Profile 
+            isLoggedIn={ isLoggedIn } 
+            username={ username }
+          />
         </Route>
       </Switch>
     </div>

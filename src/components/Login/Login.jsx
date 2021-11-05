@@ -2,10 +2,12 @@ import React, { useState } from "react";
 import {
     loginUser
 } from '../../api';
+import { useHistory } from "react-router-dom";
 
-const Login = ({ setCurrentUser }) => {
-    const [username, setUsername] = useState('');
+const Login = ({ setIsLoggedIn, setToken, username, setUsername }) => {
     const [password, setPassword] = useState('');
+
+    let history = useHistory();
 
     return (
         <div className="registerBox">
@@ -18,7 +20,10 @@ const Login = ({ setCurrentUser }) => {
                   // send data back to homepage
                   const results = await loginUser(username, password);
                   console.log(results);
-                  setCurrentUser(results)
+                  setToken(results.token);
+                  setIsLoggedIn(true);
+                  setUsername(results.user.username);
+                  history.push('/Profile')
               } catch (err) {
                   console.error(err);
               }

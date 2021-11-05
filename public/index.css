@@ -60,6 +60,10 @@ a {
   margin-right: 2.5em;
 }
 
+.nav-link {
+  margin: 5px;
+}
+
 /* home page */
 
 .welcome-header {

@@ -53,6 +53,15 @@ export async function getCurrentUser( token ) {
   }
 }
 
+export async function getAllPublicRoutinesByUser( username ) {
+  try {
+    const { data } = await axios.get(`${ BASE }/users/${ username }/routines`);
+    return data;
+  } catch (err) {
+    throw err;
+  }
+}
+
 export async function fetchAllActivities() {
   try {
     const { data: { data } } = await axios.get(`${BASE}/posts`);
