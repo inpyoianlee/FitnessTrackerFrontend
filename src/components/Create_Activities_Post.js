@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { CreateActivity } from '../api';
+import { createActivity } from '../api';
 import { getToken } from '../auth';
 
-const CreateActivity = ({ id, name, description, token }) => {
+const CreateActivity = (props) => {
     const [id, setid] = useState('');
     const [name, setname] = useState('');
     const [description, setDescription] = useState('');
@@ -21,7 +21,7 @@ const CreateActivity = ({ id, name, description, token }) => {
                         !name ? alert('Naming Activities are required. Please enter the name of Activity') : null;
                         !description ? alert('Please enter a description') : null;
                 
-                        const results = await createPost(id, name, description, SaveActivity, userToken);
+                        const results = await createActivity(id, name, description, SaveActivity, userToken);
                         setid('');
                         setname('');
                         setDescription('');
