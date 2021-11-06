@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../../api";
 import { useHistory } from "react-router-dom";
+import { storeToken } from "../../auth";
 
 const Login = ({ setIsLoggedIn, setToken, username, setUsername }) => {
   const [password, setPassword] = useState("");
@@ -19,8 +20,8 @@ const Login = ({ setIsLoggedIn, setToken, username, setUsername }) => {
           try {
             // send data back to homepage
             const results = await loginUser(username, password);
-            console.log(results);
             setToken(results.token);
+            storeToken(results.token);
             setIsLoggedIn(true);
             setUsername(results.user.username);
             history.push("/Profile");

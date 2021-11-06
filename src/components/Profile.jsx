@@ -24,21 +24,22 @@ const Profile = ({ isLoggedIn, username }) => {
       <h1>Welcome {username}</h1>
       <div className="profile-routine_box">
         <h3>Your Routines</h3>
-        {
-            userRoutines.map((routine) => {
-                return (
-                    <div className="single_routine">
-                        <h4>Routine name: { routine.name }</h4>
-                        <p>Goal: { routine.goal }</p>
-                    </div>
-                )
-            })
-        }
-        <Link to='/CreateRoutine'>Create a new routine!</Link>
+        {userRoutines ? (
+          userRoutines.map((routine) => {
+            return (
+              <div className="single_routine">
+                <h4>Routine name: {routine.name}</h4>
+                <p>Goal: {routine.goal}</p>
+              </div>
+            );
+          })
+        ) : (
+          <h4>You haven't created any routines!</h4>
+        )}
+        <Link to="/MyRoutines">Create a new routine!</Link>
       </div>
     </div>
   );
-
 };
 
 export default Profile;

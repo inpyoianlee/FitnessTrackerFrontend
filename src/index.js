@@ -7,7 +7,10 @@ import {
   NavBar, 
   Register, 
   Login, 
-  Profile
+  Profile, 
+  Activities, 
+  Routines, 
+  MyRoutines
 } from './components';
 
 import {
@@ -47,6 +50,18 @@ const App = () => {
         </Route>
         <Route path='/Profile'>
           <Profile 
+            isLoggedIn={ isLoggedIn } 
+            username={ username }
+          />
+        </Route>
+        <Route path='/Activities'>
+          <Activities isLoggedIn={ isLoggedIn }/>
+        </Route>
+        <Route path='/Routines'>
+          <Routines/>
+        </Route>
+        <Route path='/MyRoutines'>
+          <MyRoutines 
             isLoggedIn={ isLoggedIn } 
             username={ username }
           />

@@ -1,4 +1,5 @@
 import axios from 'axios';
+import { getToken } from '../auth';
 
 const BASE = 'https://fitnesstrac-kr.herokuapp.com/api'
 
@@ -54,11 +55,25 @@ export async function getCurrentUser( token ) {
 }
 
 export async function getAllPublicRoutinesByUser( username ) {
-  try {
-    const { data } = await axios.get(`${ BASE }/users/${ username }/routines`);
-    return data;
-  } catch (err) {
-    throw err;
+  if (getToken()) {
+    const header = {
+      headers: {
+        "Authorization": `Bearer ${ getToken() }`
+      }
+    }
+    try {
+      const {data} = await axios.get(`${ BASE }/users/${ username }/routines`, header);
+      return data
+    } catch (err) {
+      throw err;
+    }
+  } else {
+    try {
+      const { data } = await axios.get(`${ BASE }/users/${ username }/routines`);
+      return data;
+    } catch (err) {
+      throw err;
+    }
   }
 }
 
@@ -73,8 +88,8 @@ export async function fetchAllActivities() {
 
 export async function fetchAllRoutines() {
   try {
-    const { data: { data } } = await axios.get(`${BASE}/posts`);
-    return data.routine
+    const { data } = await axios.get(`${BASE}/routines`);
+    return data
   } catch (error) {
     throw error;
   }
@@ -107,24 +122,42 @@ export async function createActivity(id, name, description, token) {
   }
 }
 
-export async function createRoutine(id, creatorId, isPublic, name, goal, token) {
+export async function createRoutine(name, goal, isPublic = false) {
+  const token = getToken();
+  const header = {
+    headers: {
+      "Authorization": `Bearer ${ token }`
+    }
+  }
+
+  const body = {
+    name,
+    goal,
+    isPublic
+  }
   try {
-    
-    const { data } = await axios.post(`${BASE}/posts`,
-      {
-        post: {
-          id : id,
-          creatorId : creatorId,
-          isPublic : isPublic,
-          name: name,
-          goal: goal,
-          description: description,
-        }
-      }, { headers: { Authorization: `Bearer ${token}` } });
+    const { data } = await axios.post(`${BASE}/routines`, body, header);
     
     return data
   } catch (error) {
     throw error;
+  }
+}
+
+export async function deleteRoutine(routineId) {
+  const token = getToken();
+  const header = {
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${ token }`
+    }
+  }
+
+  try {
+    const {data} = await axios.delete(`${ BASE }/routines/${ routineId }`, header);
+    return data;
+  } catch (err) {
+    throw err;
   }
 }
 
