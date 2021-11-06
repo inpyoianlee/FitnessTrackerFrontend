@@ -76,4 +76,4 @@ const CreateActivity = (props) => {
     )
 }
 
-export default Create_Activities_Post;
+export default CreateActivity;

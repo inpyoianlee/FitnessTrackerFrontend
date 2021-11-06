@@ -1,5 +1,6 @@
 import React from 'react';
 import { getToken } from '../auth';
+import { Link } from 'react-router-dom';
 
 const Header = ({ userName }) => {
   const auth = getToken();
@@ -13,12 +14,12 @@ const Header = ({ userName }) => {
           <h2>Please choose one of the following:</h2>
           <div className="welcome-list">
             <figure>
-              <img className="welcome-image" src={"https://www.brottv.pl/wp-content/gallery/anime-workout-girl/vlcsnap-2020-07-24-08h39m06s489.png"} />
-              <figcaption>Routines</figcaption>
+              <Link to='/Routines'><img className="welcome-image" src={"https://www.brottv.pl/wp-content/gallery/anime-workout-girl/vlcsnap-2020-07-24-08h39m06s489.png"} /></Link>
+              <figcaption><Link to='/Routines'>Routines</Link></figcaption>
             </figure>
             <figure>
-              <img className="welcome-image" src={"https://th.bing.com/th/id/OIP.0DQzErzW9UhtyVTfd0ePFAEsCq?pid=ImgDet&rs=1"} />
-              <figcaption>Activities</figcaption>
+              <Link to='/Activities'><img className="welcome-image" src={"https://th.bing.com/th/id/OIP.0DQzErzW9UhtyVTfd0ePFAEsCq?pid=ImgDet&rs=1"} /></Link>
+              <figcaption><Link to='/Activities'>Activities</Link></figcaption>
             </figure>
           </div>
         </div>
