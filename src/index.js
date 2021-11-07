@@ -30,7 +30,6 @@ const App = () => {
     <div id="App">
       <NavBar />
       <h1>Welcome to Fitness Tracker!</h1>
-      <Header />
       <Switch>
         <Route path='/register'>
           <Register 
@@ -65,6 +64,9 @@ const App = () => {
             isLoggedIn={ isLoggedIn } 
             username={ username }
           />
+        </Route>
+        <Route path='/'>
+          <Header />
         </Route>
       </Switch>
     </div>
