@@ -1,24 +1,15 @@
-import axios from 'axios';
-import { getToken } from '../auth';
+import axios from "axios";
+import { getToken } from "../auth";
 
-const BASE = 'https://fitnesstrac-kr.herokuapp.com/api'
+const BASE = "https://fitnesstrac-kr.herokuapp.com/api";
 
-// function that acquires data of the registered user in this format:
-// {
-//   "user": {
-//     "id": 5,
-//     "username": "superman27"
-//   },
-//   "message": "you're signed up!",
-//   "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwidXNlcm5hbWUiOiJzdXBlcm1hbjI3MTIiLCJpYXQiOjE2MDE3OTcwNDIsImV4cCI6MTYwMjQwMTg0Mn0.8q2B4oCtL3Dx-fRk_K0YTZaCgzrYXXeCqU6G1AI9JT0"
-// }
 export async function registerUser(username, password) {
   const user = {
     username: username,
-    password: password
-  }
+    password: password,
+  };
   try {
-    const { data } = await axios.post(`${ BASE }/users/register`, user);
+    const { data } = await axios.post(`${BASE}/users/register`, user);
     return data;
   } catch (error) {
     throw error;
@@ -28,48 +19,51 @@ export async function registerUser(username, password) {
 export async function loginUser(username, password) {
   const user = {
     username: username,
-    password: password
-  }
+    password: password,
+  };
   try {
-    const { data } = await axios.post(`${ BASE }/users/login`, user)
-    return data;
-  } catch(err) {
-    throw err;
-  }
-}
-
-export async function getCurrentUser( token ) {
-  const headers = {
-    headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${ token }`
-    }
-  }
-
-  try {
-    const data = await axios.get(`${ BASE }/users/me`, headers)
+    const { data } = await axios.post(`${BASE}/users/login`, user);
     return data;
   } catch (err) {
     throw err;
   }
 }
 
-export async function getAllPublicRoutinesByUser( username ) {
+export async function getCurrentUser(token) {
+  const headers = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  try {
+    const data = await axios.get(`${BASE}/users/me`, headers);
+    return data;
+  } catch (err) {
+    throw err;
+  }
+}
+
+export async function getAllPublicRoutinesByUser(username) {
   if (getToken()) {
     const header = {
       headers: {
-        "Authorization": `Bearer ${ getToken() }`
-      }
-    }
+        Authorization: `Bearer ${getToken()}`,
+      },
+    };
     try {
-      const {data} = await axios.get(`${ BASE }/users/${ username }/routines`, header);
-      return data
+      const { data } = await axios.get(
+        `${BASE}/users/${username}/routines`,
+        header
+      );
+      return data;
     } catch (err) {
       throw err;
     }
   } else {
     try {
-      const { data } = await axios.get(`${ BASE }/users/${ username }/routines`);
+      const { data } = await axios.get(`${BASE}/users/${username}/routines`);
       return data;
     } catch (err) {
       throw err;
@@ -79,8 +73,8 @@ export async function getAllPublicRoutinesByUser( username ) {
 
 export async function fetchAllActivities() {
   try {
-    const { data: { data } } = await axios.get(`${BASE}/posts`);
-    return data.activity
+    const { data } = await axios.get(`${BASE}/activities`);
+    return data;
   } catch (error) {
     throw error;
   }
@@ -89,34 +83,24 @@ export async function fetchAllActivities() {
 export async function fetchAllRoutines() {
   try {
     const { data } = await axios.get(`${BASE}/routines`);
-    return data
+    return data;
   } catch (error) {
     throw error;
   }
 }
 
-export async function fetchAllRoutineActivity() {
+export async function createActivity(name, description) {
+  const token = getToken();
+  const header = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const body = { name, description };
   try {
-    const { data: { data } } = await axios.get(`${BASE}/posts`);
-    return data.routineActivity
-  } catch (error) {
-    throw error;
-  }
-}
-
-export async function createActivity(id, name, description, token) {
-  try {
-    
-    const { data } = await axios.post(`${BASE}/posts`,
-      {
-        post: {
-         id: id,
-         name: name, 
-          description: description
-        }
-      }, { headers: { Authorization: `Bearer ${token}` } });
-    
-    return data
+    const { data } = await axios.post(`${BASE}/activities`, body, header);
+    return data;
   } catch (error) {
     throw error;
   }
@@ -126,21 +110,46 @@ export async function createRoutine(name, goal, isPublic = false) {
   const token = getToken();
   const header = {
     headers: {
-      "Authorization": `Bearer ${ token }`
-    }
-  }
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   const body = {
     name,
     goal,
-    isPublic
-  }
+    isPublic,
+  };
   try {
     const { data } = await axios.post(`${BASE}/routines`, body, header);
-    
-    return data
+
+    return data;
   } catch (error) {
     throw error;
+  }
+}
+
+export async function editRoutine(routineId, name, goal, isPublic) {
+  const token = getToken();
+  const header = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const body = {
+    name,
+    goal,
+    isPublic,
+  };
+
+  try {
+    const { data } = await axios.patch(
+      `${BASE}/routines/${routineId}`,
+      body,
+      header
+    );
+    return data;
+  } catch (err) {
+    throw err;
   }
 }
 
@@ -148,76 +157,90 @@ export async function deleteRoutine(routineId) {
   const token = getToken();
   const header = {
     headers: {
-      'Content-Type': 'application/json',
-      'Authorization': `Bearer ${ token }`
-    }
-  }
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
 
   try {
-    const {data} = await axios.delete(`${ BASE }/routines/${ routineId }`, header);
+    const { data } = await axios.delete(
+      `${BASE}/routines/${routineId}`,
+      header
+    );
     return data;
   } catch (err) {
     throw err;
   }
 }
 
-export async function createRoutineActivity(id, routineId, activityId, duration, count, token) {
+export async function createRoutineActivity(
+  routineId,
+  activityId,
+  count,
+  duration
+) {
+  const token = getToken();
+  const header = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const body = {
+    activityId,
+    count,
+    duration,
+  };
+
   try {
-    
-    const { data } = await axios.post(`${BASE}/posts`,
-      {
-        post: {
-          id: id,
-          routineId: routineId,
-          activityId: activityId,
-          duration: duration,
-          count: count,
-        }
-      }, { headers: { Authorization: `Bearer ${token}` } });
-    
-    return data
+    const { data } = await axios.post(
+      `${BASE}/routines/${routineId}/activities`,
+      body,
+      header
+    );
+
+    return data;
   } catch (error) {
     throw error;
   }
 }
 
-export async function fetchUserData(token) {
+export async function editRoutineActivity(routineActivityId, count, duration) {
+  const token = getToken();
+  const header = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const body = { count, duration };
   try {
-    const { data: { data } } = await axios.get(`${BASE}/users/me`,
-      { headers: { Authorization: `Bearer ${token}` } });
-    return data
+    const { data } = await axios.patch(
+      `${BASE}/routine_activities/${routineActivityId}`,
+      body,
+      header
+    );
+    return data;
   } catch (error) {
     throw error;
   }
 }
 
-export async function editRoutineActivity(title, description, price, location, willDeliver, token, postId) {
+export async function deleteRoutineActivity(routineActivityId) {
+  const token = getToken();
+  const header = {
+    headers: {
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${token}`,
+    },
+  };
   try {
-    const data = await axios.patch(`${BASE}/posts/${postId}`,
-      {
-        post: {
-          title: title,
-          description: description,
-          price: price,
-          location: location,
-          willDeliver: willDeliver,
-        }
-      }, { headers: { Authorization: `Bearer ${token}` } });
-    return data.data
+    const { data } = await axios.delete(
+      `${BASE}/routine_activities/${routineActivityId}`,
+      header
+    );
+    return data;
   } catch (error) {
     throw error;
   }
 }
-
-export async function deleteRoutineActivity(token, postId) {
-  try {
-    const { data } = await axios.delete(`${BASE}/posts/${postId}`,
-      { headers: { Authorization: `Bearer ${token}` } });
-    return data
-  } catch (error) {
-    throw error;
-  }
-}
-
-
-
