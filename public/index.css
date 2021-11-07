@@ -107,9 +107,9 @@ figure{
   box-shadow: 2px 3px 15px -3px grey;
 }
 
-/* login page */
+/* login page AND register page*/
 
-.login {
+.login, .register {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -118,24 +118,24 @@ figure{
   margin: auto;
 }
 
-.login-form {
+.login-form, .register-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  width: 300px;
+  width: 400px;
   margin: 1em;
   padding: 10px;
   border: 1px solid lightgrey;
   border-radius: 2px;
 }
 
-.login-form input {
+.login-form input, .register-form input {
   padding: 10px;
   margin: 5px;
   border: 1px solid lightgrey;
 }
 
-.login-form button {
+.login-form button, .register-form button, #logout_button {
   background-color: #354f52;
   color: white;
   margin: 5px;
@@ -143,62 +143,77 @@ figure{
   padding: 10px;
 }
 
-/* general post page */
+/* routines and activities */
 
-.posts-main {
-  display: grid;
-  grid-template-columns: 2fr 1fr;
-  grid-template-rows: 100px 1fr;
-  grid-gap: 2em;
+.RoutinesBox {
+  /* something here maybe */
 }
 
-.search-posts {
-  grid-row: 1;
-  grid-column: 1/span 2;
+.RoutineCard {
+  border: solid;
+  height: 80px;
 }
 
-.posts {
-  grid-column: 1;
-  margin: 2em;
+/* myRoutines page */
+#post-routine-form {
   display: flex;
   flex-direction: column;
   justify-content: center;
-}
-
-.posts>h2 {
-  margin-left: 1em;
-}
-
-.post-title {
-  margin-bottom: 5px;
-  color: #354f52;
-  font-size: 20px;
-}
-
-.post-description {
-  padding-bottom: 15px;
-}
-
-.post-des-info {
-  color: #52796f;
-  font-weight: 600;
-  line-height: 1.5em;
-}
-
-.post-link {
-  text-decoration: none;
-  color: #354f52;
-  font-weight: 700;
-}
-
-.post-go-back {
+  width: 600px;
+  margin: 1em;
   padding: 10px;
+  border: 1px solid lightgrey;
   border-radius: 2px;
-  font-size: 15px;
-  color: white;
-  margin: 15px 0;
-  background-color: #2f3e46;
 }
+
+#routine_name, #routine_goal {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid lightgrey;
+}
+
+#routine_goal {
+  width: 500px;
+}
+
+#post-routine-form button {
+  background-color: #354f52;
+  color: white;
+  margin: 5px;
+  border-radius: 2px;
+  padding: 10px;
+}
+
+.single_routine {
+  border: solid;
+}
+
+.single_routine button {
+  background-color: #354f52;
+  color: white;
+  margin: 5px;
+  border-radius: 2px;
+  padding: 10px;
+}
+
+.single_activity {
+  margin-top: 10px;
+}
+
+.activitiesH4 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.single_routine h4 {
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#activity_dropdown {
+  border: dotted;
+}
+
 
 /* edit/delete buttons */
 

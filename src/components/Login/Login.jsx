@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { loginUser } from "../../api";
 import { useHistory } from "react-router-dom";
-import { getToken, storeToken, clearCurrentUser } from "../../auth";
+import { getToken, storeToken, clearCurrentUser, storeUsername, clearCurrentUsername } from "../../auth";
 
 const Login = ({ setIsLoggedIn, setToken, username, setUsername }) => {
   const [password, setPassword] = useState("");
@@ -11,12 +11,13 @@ const Login = ({ setIsLoggedIn, setToken, username, setUsername }) => {
 
   if (getToken()) {
     return (
-      <div clasName='loginBox'>
+      <div clasName='login'>
         <h1>You are already logged in!</h1>
         <button 
           id='logout_button' 
           onClick={() => {
             clearCurrentUser()
+            clearCurrentUsername()
             setIsLoggedIn(false);
             window.location.reload();
           }}
@@ -26,11 +27,11 @@ const Login = ({ setIsLoggedIn, setToken, username, setUsername }) => {
   }
 
   return (
-    <div className="loginBox">
+    <div className="login">
       <h1>Log in to your account!</h1>
       <p>{errorMessage}</p>
       <form
-        id="loginForm"
+        className="login-form"
         onSubmit={async (e) => {
           e.preventDefault();
           try {
@@ -40,6 +41,7 @@ const Login = ({ setIsLoggedIn, setToken, username, setUsername }) => {
             storeToken(results.token);
             setIsLoggedIn(true);
             setUsername(results.user.username);
+            storeUsername(results.user.username);
             history.push("/Profile");
           } catch (err) {
             setErrorMessage("Wrong username, or wrong password.");
