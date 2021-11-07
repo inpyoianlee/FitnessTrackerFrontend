@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import { registerUser } from "../../api";
 import { useHistory } from "react-router-dom";
-import { storeToken } from "../../auth/index";
+import { storeToken, getToken, clearCurrentUser } from "../../auth/index";
 
 const Register = ({ setIsLoggedIn, setToken, username, setUsername }) => {
   const [password, setPassword] = useState("");
   const [errorMessage, setErrorMessage] = useState('');
 
   let history = useHistory();
+
+  if (getToken()) {
+    return (
+      <div clasName='loginBox'>
+        <h1>You are already logged in!</h1>
+        <button 
+          id='logout_button' 
+          onClick={() => {
+            clearCurrentUser()
+            setIsLoggedIn(false);
+            window.location.reload();
+          }}
+        >Log out</button>
+      </div>
+    )
+  }
 
   return (
     <div className="registerBox">

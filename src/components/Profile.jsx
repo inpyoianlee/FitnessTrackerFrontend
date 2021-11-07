@@ -1,11 +1,13 @@
 import react, { useEffect, useState } from "react";
-import { useHistory } from "react-router-dom";
 import { getAllPublicRoutinesByUser } from "../api";
 import { Link } from "react-router-dom";
+import { clearCurrentUser } from "../auth";
+import { useHistory } from "react-router-dom";
 
 const Profile = ({ isLoggedIn, username }) => {
   const [userRoutines, setUserRoutines] = useState([]);
-
+  let history = useHistory()
+  
   async function getRoutines() {
     try {
       const userData = await getAllPublicRoutinesByUser(username);
@@ -22,6 +24,14 @@ const Profile = ({ isLoggedIn, username }) => {
   return (
     <div className="ProfileBox">
       <h1>Welcome {username}</h1>
+      <button 
+          id='logout_button' 
+          onClick={() => {
+            clearCurrentUser()
+            setIsLoggedIn(false);
+            history.push('/');
+          }}
+        >Log out</button>
       <div className="profile-routine_box">
         <h3>Your Routines</h3>
         {userRoutines ? (
