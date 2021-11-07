@@ -1,7 +1,7 @@
 import react, { useEffect, useState } from "react";
 import { getAllPublicRoutinesByUser } from "../api";
 import { Link } from "react-router-dom";
-import { clearCurrentUser } from "../auth";
+import { clearCurrentUser, clearCurrentUsername } from "../auth";
 import { useHistory } from "react-router-dom";
 
 const Profile = ({ isLoggedIn, username }) => {
@@ -28,6 +28,7 @@ const Profile = ({ isLoggedIn, username }) => {
           id='logout_button' 
           onClick={() => {
             clearCurrentUser()
+            clearCurrentUsername()
             setIsLoggedIn(false);
             history.push('/');
           }}
@@ -37,7 +38,7 @@ const Profile = ({ isLoggedIn, username }) => {
         {userRoutines ? (
           userRoutines.map((routine) => {
             return (
-              <div className="single_routine">
+              <div className="RoutineCard">
                 <h4>Routine name: {routine.name}</h4>
                 <p>Goal: {routine.goal}</p>
               </div>

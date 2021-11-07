@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { registerUser } from "../../api";
 import { useHistory } from "react-router-dom";
-import { storeToken, getToken, clearCurrentUser } from "../../auth/index";
+import { storeToken, getToken, clearCurrentUser, storeUsername, clearCurrentUsername } from "../../auth/index";
 
 const Register = ({ setIsLoggedIn, setToken, username, setUsername }) => {
   const [password, setPassword] = useState("");
@@ -11,12 +11,13 @@ const Register = ({ setIsLoggedIn, setToken, username, setUsername }) => {
 
   if (getToken()) {
     return (
-      <div clasName='loginBox'>
+      <div clasName='register'>
         <h1>You are already logged in!</h1>
         <button 
           id='logout_button' 
           onClick={() => {
             clearCurrentUser()
+            clearCurrentUsername()
             setIsLoggedIn(false);
             window.location.reload();
           }}
@@ -26,11 +27,11 @@ const Register = ({ setIsLoggedIn, setToken, username, setUsername }) => {
   }
 
   return (
-    <div className="registerBox">
+    <div className="register">
       <h1>Create an account to share your workouts with others!</h1>
       <p>{ errorMessage }</p>
       <form
-        id="register"
+        className="register-form"
         onSubmit={async (e) => {
           e.preventDefault();
           try {
@@ -39,6 +40,7 @@ const Register = ({ setIsLoggedIn, setToken, username, setUsername }) => {
             setIsLoggedIn(true);
             setToken(results.token);
             storeToken(results.token);
+            storeUsername(results.user.username)
             history.push("/Profile");
           } catch (err) {
             setErrorMessage('Error: username already exists, or you need a longer password');

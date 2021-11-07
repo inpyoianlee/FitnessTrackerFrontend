@@ -82,12 +82,12 @@ const SingleRoutine = ({ name, goal, id, activities, isPublic }) => {
           {activities[0] ? (
             activities.map((activity) => {
               return (
-                <SingleActivity 
-                  name={ activity.name } 
-                  description={ activity.description }
-                  count={ activity.count }
+                <SingleActivity
+                  name={activity.name}
+                  description={activity.description}
+                  count={activity.count}
                   duration={activity.duration}
-                  routineActivityId={ activity.routineActivityId }
+                  routineActivityId={activity.routineActivityId}
                 />
               );
             })
@@ -182,7 +182,7 @@ const SingleRoutine = ({ name, goal, id, activities, isPublic }) => {
         <h4>Routine name: {name}</h4>
         <p>Goal: {goal}</p>
         <span>
-          <h4>Activities:</h4>
+          <h4 className="activitiesH4">Activities:</h4>
           {activities[0] ? (
             activities.map((activity) => {
               return (

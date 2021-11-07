@@ -4,15 +4,16 @@ import {
   getAllPublicRoutinesByUser,
   deleteRoutine,
 } from "../api";
-import { getToken } from "../auth";
+import { getToken, getUsername } from "../auth";
 import SingleRoutine from "./SingleRoutine";
 
-const MyRoutines = ({ isLoggedIn, username }) => {
+const MyRoutines = ({ isLoggedIn }) => {
   const [routineName, setRoutineName] = useState("");
   const [routineGoal, setRoutineGoal] = useState("");
   const [routineList, setRoutineList] = useState([]);
   async function getRoutines() {
     try {
+      const username = getUsername()
       const data = await getAllPublicRoutinesByUser(username);
       setRoutineList(data);
     } catch (err) {
